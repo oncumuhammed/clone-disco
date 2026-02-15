@@ -1,0 +1,94 @@
+/**
+ * Typography styles and font declarations.
+ * Defines heading styles and code block formatting.
+ */
+
+@font-face {
+  font-family: 'gg sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('gg sans'), local('gg-sans');
+}
+
+@font-face {
+  font-family: 'gg sans';
+  font-style: normal;
+  font-weight: 500;
+  src: local('gg sans Medium'), local('gg-sans-medium');
+}
+
+@font-face {
+  font-family: 'gg sans';
+  font-style: normal;
+  font-weight: 600;
+  src: local('gg sans Semibold'), local('gg-sans-semibold');
+}
+
+@font-face {
+  font-family: 'gg sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('gg sans Bold'), local('gg-sans-bold');
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+h5 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+h6 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+code,
+pre {
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 0.875rem;
+}
+
+code {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 0.125rem 0.25rem;
+  border-radius: 3px;
+}
+
+pre {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 0.5rem;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+}

@@ -1,0 +1,78 @@
+/**
+ * Global styles and CSS resets.
+ * Includes Tailwind directives and base styling for the application.
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #5865f2;
+  --color-green: #57f287;
+  --color-yellow: #fee75c;
+  --color-fuchsia: #eb459e;
+  --color-red: #ed4245;
+  --color-bg-primary: #313338;
+  --color-bg-secondary: #2b2d31;
+  --color-bg-tertiary: #1e1f22;
+  --color-bg-modifier-hover: #2e3035;
+  --color-bg-modifier-selected: #35373c;
+  --color-text-normal: #dbdee1;
+  --color-text-muted: #949ba4;
+  --color-text-link: #00a8fc;
+  --color-sidebar: #2b2d31;
+  --color-server-list: #1e1f22;
+  --color-chat-area: #313338;
+  --color-input-bg: #383a40;
+  --color-scrollbar-thumb: #1a1b1e;
+  --color-scrollbar-track: transparent;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'gg sans', 'Noto Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+}
+
+::selection {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+a {
+  color: var(--color-text-link);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+}
