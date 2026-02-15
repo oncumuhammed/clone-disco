@@ -1,8 +1,6 @@
 # Docker Compose configuration for Concord production
 # Orchestrates all services: app, database, cache, storage, and proxy
 
-version: '3.8'
-
 services:
   app:
     build:

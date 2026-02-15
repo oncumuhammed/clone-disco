@@ -1,8 +1,6 @@
 # Docker Compose override for development
 # Hot-reloading and direct source mounting for faster development
 
-version: '3.8'
-
 services:
   app:
     build:
