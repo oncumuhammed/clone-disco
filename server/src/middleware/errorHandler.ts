@@ -3,15 +3,18 @@
  * Catches all errors and formats them into standardized API error responses.
  */
 import type { Request, Response, NextFunction } from 'express';
-import { Prisma } from '@prisma/client';
 import { ZodError } from 'zod';
 import { AppError } from '../utils/errors.js';
 import { sendError } from '../utils/response.js';
 import { env } from '../config/env.js';
 
+interface PrismaError extends Error {
+  code?: string;
+}
+
 export function errorHandler(
   error: Error,
-  req: Request,
+  _req: Request,
   res: Response,
   next: NextFunction,
 ): void {
@@ -30,16 +33,17 @@ export function errorHandler(
     return;
   }
 
-  if (error instanceof Prisma.PrismaClientKnownRequestError) {
-    if (error.code === 'P2002') {
+  const prismaError = error as PrismaError;
+  if (prismaError.code) {
+    if (prismaError.code === 'P2002') {
       sendError(res, 'UNIQUE_CONSTRAINT', 'A record with this value already exists', 409);
       return;
     }
-    if (error.code === 'P2025') {
+    if (prismaError.code === 'P2025') {
       sendError(res, 'NOT_FOUND', 'Record not found', 404);
       return;
     }
-    if (error.code === 'P2003') {
+    if (prismaError.code === 'P2003') {
       sendError(res, 'FOREIGN_KEY_CONSTRAINT', 'Related record not found', 400);
       return;
     }

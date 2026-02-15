@@ -3,7 +3,7 @@
  * Configures workers, routers, and transports for voice and video communication.
  */
 import type * as mediasoup from 'mediasoup';
-import { types as mediasoupTypes } from 'mediasoup';
+import type { types as mediasoupTypes } from 'mediasoup';
 import { env } from './env.js';
 
 export const mediasoupConfig = {

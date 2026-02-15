@@ -1,7 +1,3 @@
-/**
- * Root workspace package.json for Concord monorepo.
- * Manages npm workspaces and common development scripts.
- */
 {
   "name": "concord",
   "version": "1.0.0",

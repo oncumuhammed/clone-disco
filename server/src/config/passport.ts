@@ -16,7 +16,7 @@ export function configurePassport() {
           clientSecret: env.GOOGLE_CLIENT_SECRET,
           callbackURL: env.GOOGLE_CALLBACK_URL,
         },
-        async (accessToken, refreshToken, profile, done) => {
+        async (_accessToken, _refreshToken, profile, done) => {
           try {
             done(null, profile);
           } catch (error) {
@@ -35,7 +35,7 @@ export function configurePassport() {
           clientSecret: env.GITHUB_CLIENT_SECRET,
           callbackURL: env.GITHUB_CALLBACK_URL,
         },
-        async (accessToken: string, refreshToken: string, profile: any, done: any) => {
+        async (_accessToken: string, _refreshToken: string, profile: any, done: any) => {
           try {
             done(null, profile);
           } catch (error) {

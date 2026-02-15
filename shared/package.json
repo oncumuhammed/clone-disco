@@ -1,7 +1,3 @@
-/**
- * Shared package for Concord monorepo.
- * Contains TypeScript types, constants, and utilities shared between client and server.
- */
 {
   "name": "@concord/shared",
   "version": "1.0.0",

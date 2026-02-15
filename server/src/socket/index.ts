@@ -4,7 +4,6 @@
  */
 import type { Server as HttpServer } from 'http';
 import { Server } from 'socket.io';
-import { env } from '../config/env.js';
 import { corsOptions } from '../config/cors.js';
 
 export function setupSocketIO(httpServer: HttpServer): Server {
