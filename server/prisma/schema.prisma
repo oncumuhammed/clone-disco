@@ -14,44 +14,44 @@ datasource db {
 // USER
 // ============================================
 model User {
-  id                String    @id @default(cuid())
-  username          String    @unique @db.VarChar(32)
-  discriminator     String    @db.VarChar(4)
-  email             String    @unique @db.VarChar(255)
-  passwordHash      String?   @db.VarChar(255)
-  avatarUrl         String?   @db.VarChar(512)
-  bannerUrl         String?   @db.VarChar(512)
-  bannerColor       String?   @db.VarChar(7)
-  bio               String?   @db.VarChar(190)
-  status            UserStatus @default(OFFLINE)
-  customStatus      String?   @db.VarChar(128)
-  customStatusEmoji String?   @db.VarChar(64)
-  isBot             Boolean   @default(false)
-  isEmailVerified   Boolean   @default(false)
-  emailVerifyToken  String?   @db.VarChar(255)
-  passwordResetToken String?  @db.VarChar(255)
+  id                  String     @id @default(cuid())
+  username            String     @unique @db.VarChar(32)
+  discriminator       String     @db.VarChar(4)
+  email               String     @unique @db.VarChar(255)
+  passwordHash        String?    @db.VarChar(255)
+  avatarUrl           String?    @db.VarChar(512)
+  bannerUrl           String?    @db.VarChar(512)
+  bannerColor         String?    @db.VarChar(7)
+  bio                 String?    @db.VarChar(190)
+  status              UserStatus @default(OFFLINE)
+  customStatus        String?    @db.VarChar(128)
+  customStatusEmoji   String?    @db.VarChar(64)
+  isBot               Boolean    @default(false)
+  isEmailVerified     Boolean    @default(false)
+  emailVerifyToken    String?    @db.VarChar(255)
+  passwordResetToken  String?    @db.VarChar(255)
   passwordResetExpiry DateTime?
-  lastOnlineAt      DateTime?
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
+  lastOnlineAt        DateTime?
+  createdAt           DateTime   @default(now())
+  updatedAt           DateTime   @updatedAt
 
-  googleId          String?   @unique @db.VarChar(255)
-  githubId          String?   @unique @db.VarChar(255)
+  googleId String? @unique @db.VarChar(255)
+  githubId String? @unique @db.VarChar(255)
 
-  ownedServers      Server[]           @relation("ServerOwner")
-  serverMembers     ServerMember[]
-  messages          Message[]
-  reactions         Reaction[]
-  sentFriendRequests     FriendRequest[] @relation("FriendRequestSender")
-  receivedFriendRequests FriendRequest[] @relation("FriendRequestReceiver")
-  dmChannelMembers  DMChannelMember[]
-  voiceStates       VoiceState[]
-  readStates        ReadState[]
-  bansGiven         Ban[]              @relation("BanExecutor")
-  bansReceived      Ban[]              @relation("BannedUser")
-  auditLogs         AuditLog[]
-  webhooks          Webhook[]
-  refreshTokens     RefreshToken[]
+  ownedServers           Server[]          @relation("ServerOwner")
+  serverMembers          ServerMember[]
+  messages               Message[]
+  reactions              Reaction[]
+  sentFriendRequests     FriendRequest[]   @relation("FriendRequestSender")
+  receivedFriendRequests FriendRequest[]   @relation("FriendRequestReceiver")
+  dmChannelMembers       DMChannelMember[]
+  voiceStates            VoiceState[]
+  readStates             ReadState[]
+  bansGiven              Ban[]             @relation("BanExecutor")
+  bansReceived           Ban[]             @relation("BannedUser")
+  auditLogs              AuditLog[]
+  webhooks               Webhook[]
+  refreshTokens          RefreshToken[]
 
   @@unique([username, discriminator])
   @@index([email])
@@ -71,12 +71,12 @@ enum UserStatus {
 // REFRESH TOKEN
 // ============================================
 model RefreshToken {
-  id          String   @id @default(cuid())
-  token       String   @unique @db.VarChar(512)
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  expiresAt   DateTime
-  createdAt   DateTime @default(now())
+  id        String   @id @default(cuid())
+  token     String   @unique @db.VarChar(512)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
 
   @@index([userId])
   @@index([token])
@@ -87,30 +87,30 @@ model RefreshToken {
 // SERVER (Guild)
 // ============================================
 model Server {
-  id            String    @id @default(cuid())
-  name          String    @db.VarChar(100)
-  description   String?   @db.VarChar(1000)
-  iconUrl       String?   @db.VarChar(512)
-  bannerUrl     String?   @db.VarChar(512)
-  ownerId       String
-  owner         User      @relation("ServerOwner", fields: [ownerId], references: [id], onDelete: Cascade)
-  isPublic      Boolean   @default(false)
-  vanityUrl     String?   @unique @db.VarChar(32)
-  systemChannelId String? @db.VarChar(255)
-  memberCount   Int       @default(0)
-  category      ServerCategory @default(OTHER)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id              String         @id @default(cuid())
+  name            String         @db.VarChar(100)
+  description     String?        @db.VarChar(1000)
+  iconUrl         String?        @db.VarChar(512)
+  bannerUrl       String?        @db.VarChar(512)
+  ownerId         String
+  owner           User           @relation("ServerOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  isPublic        Boolean        @default(false)
+  vanityUrl       String?        @unique @db.VarChar(32)
+  systemChannelId String?        @db.VarChar(255)
+  memberCount     Int            @default(0)
+  category        ServerCategory @default(OTHER)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
 
-  channels         Channel[]
+  channels          Channel[]
   channelCategories ChannelCategory[]
-  roles            Role[]
-  members          ServerMember[]
-  invites          Invite[]
-  bans             Ban[]
-  customEmojis     CustomEmoji[]
-  auditLogs        AuditLog[]
-  webhooks         Webhook[]
+  roles             Role[]
+  members           ServerMember[]
+  invites           Invite[]
+  bans              Ban[]
+  customEmojis      CustomEmoji[]
+  auditLogs         AuditLog[]
+  webhooks          Webhook[]
 
   @@index([ownerId])
   @@index([isPublic])
@@ -134,14 +134,14 @@ enum ServerCategory {
 // CHANNEL CATEGORY
 // ============================================
 model ChannelCategory {
-  id         String   @id @default(cuid())
-  name       String   @db.VarChar(100)
-  position   Int      @default(0)
-  serverId   String
-  server     Server   @relation(fields: [serverId], references: [id], onDelete: Cascade)
-  channels   Channel[]
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id        String    @id @default(cuid())
+  name      String    @db.VarChar(100)
+  position  Int       @default(0)
+  serverId  String
+  server    Server    @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  channels  Channel[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
   @@index([serverId])
   @@map("channel_categories")
@@ -151,22 +151,22 @@ model ChannelCategory {
 // CHANNEL
 // ============================================
 model Channel {
-  id          String       @id @default(cuid())
-  name        String       @db.VarChar(100)
-  topic       String?      @db.VarChar(1024)
-  type        ChannelType
-  position    Int          @default(0)
-  isNsfw      Boolean      @default(false)
-  slowMode    Int          @default(0)
-  serverId    String?
-  server      Server?      @relation(fields: [serverId], references: [id], onDelete: Cascade)
-  categoryId  String?
-  category    ChannelCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
-  parentId    String?
-  parent      Channel?     @relation("ChannelThreads", fields: [parentId], references: [id], onDelete: Cascade)
-  threads     Channel[]    @relation("ChannelThreads")
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  id         String           @id @default(cuid())
+  name       String           @db.VarChar(100)
+  topic      String?          @db.VarChar(1024)
+  type       ChannelType
+  position   Int              @default(0)
+  isNsfw     Boolean          @default(false)
+  slowMode   Int              @default(0)
+  serverId   String?
+  server     Server?          @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  categoryId String?
+  category   ChannelCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  parentId   String?
+  parent     Channel?         @relation("ChannelThreads", fields: [parentId], references: [id], onDelete: Cascade)
+  threads    Channel[]        @relation("ChannelThreads")
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
 
   messages            Message[]
   permissionOverrides PermissionOverride[]
@@ -197,13 +197,13 @@ enum ChannelType {
 // PERMISSION OVERRIDE
 // ============================================
 model PermissionOverride {
-  id         String  @id @default(cuid())
+  id         String               @id @default(cuid())
   channelId  String
-  channel    Channel @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  channel    Channel              @relation(fields: [channelId], references: [id], onDelete: Cascade)
   targetType PermissionTargetType
   targetId   String
-  allow      BigInt  @default(0)
-  deny       BigInt  @default(0)
+  allow      BigInt               @default(0)
+  deny       BigInt               @default(0)
 
   @@unique([channelId, targetType, targetId])
   @@index([channelId])
@@ -219,27 +219,27 @@ enum PermissionTargetType {
 // MESSAGE
 // ============================================
 model Message {
-  id            String      @id @default(cuid())
-  content       String      @db.Text
-  type          MessageType @default(DEFAULT)
-  channelId     String
-  channel       Channel     @relation(fields: [channelId], references: [id], onDelete: Cascade)
-  authorId      String
-  author        User        @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  replyToId     String?
-  replyTo       Message?    @relation("MessageReplies", fields: [replyToId], references: [id], onDelete: SetNull)
-  replies       Message[]   @relation("MessageReplies")
-  isPinned      Boolean     @default(false)
-  isEdited      Boolean     @default(false)
-  editedAt      DateTime?
-  webhookId     String?
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  id        String      @id @default(cuid())
+  content   String      @db.Text
+  type      MessageType @default(DEFAULT)
+  channelId String
+  channel   Channel     @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  authorId  String
+  author    User        @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  replyToId String?
+  replyTo   Message?    @relation("MessageReplies", fields: [replyToId], references: [id], onDelete: SetNull)
+  replies   Message[]   @relation("MessageReplies")
+  isPinned  Boolean     @default(false)
+  isEdited  Boolean     @default(false)
+  editedAt  DateTime?
+  webhookId String?
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
 
-  attachments   Attachment[]
-  reactions     Reaction[]
-  embeds        Embed[]
-  mentions      Mention[]
+  attachments Attachment[]
+  reactions   Reaction[]
+  embeds      Embed[]
+  mentions    Mention[]
 
   @@index([channelId, createdAt])
   @@index([authorId])
@@ -261,16 +261,16 @@ enum MessageType {
 // ATTACHMENT
 // ============================================
 model Attachment {
-  id          String  @id @default(cuid())
-  messageId   String
-  message     Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
-  fileName    String  @db.VarChar(255)
-  fileSize    Int
-  fileUrl     String  @db.VarChar(512)
-  mimeType    String  @db.VarChar(128)
-  width       Int?
-  height      Int?
-  createdAt   DateTime @default(now())
+  id        String   @id @default(cuid())
+  messageId String
+  message   Message  @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  fileName  String   @db.VarChar(255)
+  fileSize  Int
+  fileUrl   String   @db.VarChar(512)
+  mimeType  String   @db.VarChar(128)
+  width     Int?
+  height    Int?
+  createdAt DateTime @default(now())
 
   @@index([messageId])
   @@map("attachments")
@@ -280,25 +280,25 @@ model Attachment {
 // EMBED
 // ============================================
 model Embed {
-  id           String  @id @default(cuid())
+  id           String    @id @default(cuid())
   messageId    String
-  message      Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
-  type         String  @db.VarChar(32)
-  title        String? @db.VarChar(256)
-  description  String? @db.VarChar(4096)
-  url          String? @db.VarChar(512)
+  message      Message   @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  type         String    @db.VarChar(32)
+  title        String?   @db.VarChar(256)
+  description  String?   @db.VarChar(4096)
+  url          String?   @db.VarChar(512)
   color        Int?
-  thumbnailUrl String? @db.VarChar(512)
-  imageUrl     String? @db.VarChar(512)
-  videoUrl     String? @db.VarChar(512)
-  authorName   String? @db.VarChar(256)
-  authorUrl    String? @db.VarChar(512)
-  authorIcon   String? @db.VarChar(512)
-  footerText   String? @db.VarChar(2048)
-  footerIcon   String? @db.VarChar(512)
+  thumbnailUrl String?   @db.VarChar(512)
+  imageUrl     String?   @db.VarChar(512)
+  videoUrl     String?   @db.VarChar(512)
+  authorName   String?   @db.VarChar(256)
+  authorUrl    String?   @db.VarChar(512)
+  authorIcon   String?   @db.VarChar(512)
+  footerText   String?   @db.VarChar(2048)
+  footerIcon   String?   @db.VarChar(512)
   fields       Json?
   timestamp    DateTime?
-  createdAt    DateTime @default(now())
+  createdAt    DateTime  @default(now())
 
   @@index([messageId])
   @@map("embeds")
@@ -308,11 +308,11 @@ model Embed {
 // MENTION
 // ============================================
 model Mention {
-  id         String     @id @default(cuid())
-  messageId  String
-  message    Message    @relation(fields: [messageId], references: [id], onDelete: Cascade)
-  type       MentionType
-  targetId   String
+  id        String      @id @default(cuid())
+  messageId String
+  message   Message     @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  type      MentionType
+  targetId  String
 
   @@index([messageId])
   @@index([targetId])
@@ -331,14 +331,14 @@ enum MentionType {
 // REACTION
 // ============================================
 model Reaction {
-  id         String  @id @default(cuid())
-  messageId  String
-  message    Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
-  userId     String
-  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  emoji      String  @db.VarChar(64)
-  isCustom   Boolean @default(false)
-  createdAt  DateTime @default(now())
+  id        String   @id @default(cuid())
+  messageId String
+  message   Message  @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  emoji     String   @db.VarChar(64)
+  isCustom  Boolean  @default(false)
+  createdAt DateTime @default(now())
 
   @@unique([messageId, userId, emoji])
   @@index([messageId])
@@ -349,20 +349,20 @@ model Reaction {
 // ROLE
 // ============================================
 model Role {
-  id           String  @id @default(cuid())
-  name         String  @db.VarChar(100)
-  color        Int     @default(0)
-  isHoisted    Boolean @default(false)
-  position     Int     @default(0)
-  permissions  BigInt  @default(0)
-  isMentionable Boolean @default(false)
-  isDefault    Boolean @default(false)
-  serverId     String
-  server       Server  @relation(fields: [serverId], references: [id], onDelete: Cascade)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id            String   @id @default(cuid())
+  name          String   @db.VarChar(100)
+  color         Int      @default(0)
+  isHoisted     Boolean  @default(false)
+  position      Int      @default(0)
+  permissions   BigInt   @default(0)
+  isMentionable Boolean  @default(false)
+  isDefault     Boolean  @default(false)
+  serverId      String
+  server        Server   @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
-  members      ServerMember[] @relation("MemberRoles")
+  members ServerMember[] @relation("MemberRoles")
 
   @@index([serverId])
   @@index([position])
@@ -373,17 +373,17 @@ model Role {
 // SERVER MEMBER
 // ============================================
 model ServerMember {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  serverId  String
-  server    Server   @relation(fields: [serverId], references: [id], onDelete: Cascade)
-  nickname  String?  @db.VarChar(32)
-  joinedAt  DateTime @default(now())
-  isMuted   Boolean  @default(false)
-  isDeafened Boolean @default(false)
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  serverId   String
+  server     Server   @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  nickname   String?  @db.VarChar(32)
+  joinedAt   DateTime @default(now())
+  isMuted    Boolean  @default(false)
+  isDeafened Boolean  @default(false)
 
-  roles     Role[]   @relation("MemberRoles")
+  roles Role[] @relation("MemberRoles")
 
   @@unique([userId, serverId])
   @@index([serverId])
@@ -395,14 +395,14 @@ model ServerMember {
 // FRIEND REQUEST
 // ============================================
 model FriendRequest {
-  id          String              @id @default(cuid())
-  senderId    String
-  sender      User                @relation("FriendRequestSender", fields: [senderId], references: [id], onDelete: Cascade)
-  receiverId  String
-  receiver    User                @relation("FriendRequestReceiver", fields: [receiverId], references: [id], onDelete: Cascade)
-  status      FriendRequestStatus @default(PENDING)
-  createdAt   DateTime            @default(now())
-  updatedAt   DateTime            @updatedAt
+  id         String              @id @default(cuid())
+  senderId   String
+  sender     User                @relation("FriendRequestSender", fields: [senderId], references: [id], onDelete: Cascade)
+  receiverId String
+  receiver   User                @relation("FriendRequestReceiver", fields: [receiverId], references: [id], onDelete: Cascade)
+  status     FriendRequestStatus @default(PENDING)
+  createdAt  DateTime            @default(now())
+  updatedAt  DateTime            @updatedAt
 
   @@unique([senderId, receiverId])
   @@index([receiverId])
@@ -421,13 +421,13 @@ enum FriendRequestStatus {
 // DM CHANNEL MEMBER
 // ============================================
 model DMChannelMember {
-  id         String  @id @default(cuid())
-  userId     String
-  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  channelId  String
-  channel    Channel @relation(fields: [channelId], references: [id], onDelete: Cascade)
-  isOwner    Boolean @default(false)
-  joinedAt   DateTime @default(now())
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  channelId String
+  channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  isOwner   Boolean  @default(false)
+  joinedAt  DateTime @default(now())
 
   @@unique([userId, channelId])
   @@index([userId])
@@ -439,18 +439,18 @@ model DMChannelMember {
 // INVITE
 // ============================================
 model Invite {
-  code        String   @id @db.VarChar(16)
+  code        String    @id @db.VarChar(16)
   serverId    String
-  server      Server   @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  server      Server    @relation(fields: [serverId], references: [id], onDelete: Cascade)
   channelId   String
-  channel     Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
-  inviterId   String   @db.VarChar(255)
+  channel     Channel   @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  inviterId   String    @db.VarChar(255)
   maxUses     Int?
-  uses        Int      @default(0)
+  uses        Int       @default(0)
   maxAge      Int?
-  isTemporary Boolean  @default(false)
+  isTemporary Boolean   @default(false)
   expiresAt   DateTime?
-  createdAt   DateTime @default(now())
+  createdAt   DateTime  @default(now())
 
   @@index([serverId])
   @@index([code])
@@ -497,14 +497,14 @@ model CustomEmoji {
 // READ STATE
 // ============================================
 model ReadState {
-  id              String   @id @default(cuid())
-  userId          String
-  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  channelId       String
-  channel         Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
-  lastReadMessageId String? @db.VarChar(255)
-  mentionCount    Int      @default(0)
-  updatedAt       DateTime @updatedAt
+  id                String   @id @default(cuid())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  channelId         String
+  channel           Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  lastReadMessageId String?  @db.VarChar(255)
+  mentionCount      Int      @default(0)
+  updatedAt         DateTime @updatedAt
 
   @@unique([userId, channelId])
   @@index([userId])
@@ -515,19 +515,19 @@ model ReadState {
 // VOICE STATE
 // ============================================
 model VoiceState {
-  id           String   @id @default(cuid())
-  userId       String
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  channelId    String
-  channel      Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
-  serverId     String?  @db.VarChar(255)
-  isSelfMuted  Boolean  @default(false)
-  isSelfDeafened Boolean @default(false)
-  isServerMuted Boolean @default(false)
-  isServerDeafened Boolean @default(false)
-  isStreaming  Boolean  @default(false)
-  isVideoOn    Boolean  @default(false)
-  joinedAt     DateTime @default(now())
+  id               String   @id @default(cuid())
+  userId           String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  channelId        String
+  channel          Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  serverId         String?  @db.VarChar(255)
+  isSelfMuted      Boolean  @default(false)
+  isSelfDeafened   Boolean  @default(false)
+  isServerMuted    Boolean  @default(false)
+  isServerDeafened Boolean  @default(false)
+  isStreaming      Boolean  @default(false)
+  isVideoOn        Boolean  @default(false)
+  joinedAt         DateTime @default(now())
 
   @@unique([userId])
   @@index([channelId])
@@ -538,17 +538,17 @@ model VoiceState {
 // AUDIT LOG
 // ============================================
 model AuditLog {
-  id          String         @id @default(cuid())
-  serverId    String
-  server      Server         @relation(fields: [serverId], references: [id], onDelete: Cascade)
-  executorId  String
-  executor    User           @relation(fields: [executorId], references: [id], onDelete: Cascade)
-  action      AuditLogAction
-  targetType  String         @db.VarChar(32)
-  targetId    String         @db.VarChar(255)
-  changes     Json?
-  reason      String?        @db.VarChar(512)
-  createdAt   DateTime       @default(now())
+  id         String         @id @default(cuid())
+  serverId   String
+  server     Server         @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  executorId String
+  executor   User           @relation(fields: [executorId], references: [id], onDelete: Cascade)
+  action     AuditLogAction
+  targetType String         @db.VarChar(32)
+  targetId   String         @db.VarChar(255)
+  changes    Json?
+  reason     String?        @db.VarChar(512)
+  createdAt  DateTime       @default(now())
 
   @@index([serverId])
   @@index([executorId])
@@ -584,18 +584,18 @@ enum AuditLogAction {
 // WEBHOOK
 // ============================================
 model Webhook {
-  id          String  @id @default(cuid())
-  name        String  @db.VarChar(80)
-  avatarUrl   String? @db.VarChar(512)
-  token       String  @unique @db.VarChar(255)
-  channelId   String
-  channel     Channel @relation(fields: [channelId], references: [id], onDelete: Cascade)
-  serverId    String
-  server      Server  @relation(fields: [serverId], references: [id], onDelete: Cascade)
-  creatorId   String
-  creator     User    @relation(fields: [creatorId], references: [id], onDelete: Cascade)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String   @id @default(cuid())
+  name      String   @db.VarChar(80)
+  avatarUrl String?  @db.VarChar(512)
+  token     String   @unique @db.VarChar(255)
+  channelId String
+  channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  serverId  String
+  server    Server   @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  creatorId String
+  creator   User     @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([channelId])
   @@index([serverId])

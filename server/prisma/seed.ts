@@ -90,7 +90,7 @@ async function main() {
       email: 'alice@example.com',
       passwordHash,
       status: 'ONLINE',
-      bio: 'Hey there! I\'m using Concord',
+      bio: "Hey there! I'm using Concord",
       isEmailVerified: true,
     },
   });
@@ -749,7 +749,7 @@ async function main() {
 
   await prisma.message.create({
     data: {
-      content: 'I\'m in! What game are we playing?',
+      content: "I'm in! What game are we playing?",
       authorId: charlie.id,
       channelId: generalChannel.id,
       type: 'DEFAULT',
@@ -834,7 +834,7 @@ async function main() {
 
   await prisma.message.create({
     data: {
-      content: 'Perfect! Let\'s discuss this more later.',
+      content: "Perfect! Let's discuss this more later.",
       authorId: admin.id,
       channelId: adminAliceDM.id,
       type: 'DEFAULT',
@@ -879,7 +879,7 @@ async function main() {
 
   await prisma.message.create({
     data: {
-      content: 'Thanks Alice! When\'s our first session?',
+      content: "Thanks Alice! When's our first session?",
       authorId: charlie.id,
       channelId: groupDM.id,
       type: 'DEFAULT',
