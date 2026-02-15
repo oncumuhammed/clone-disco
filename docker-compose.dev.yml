@@ -1,0 +1,44 @@
+# Docker Compose override for development
+# Hot-reloading and direct source mounting for faster development
+
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+      target: builder
+    command: npx tsx watch src/index.ts
+    volumes:
+      - ./server/src:/app/server/src
+      - ./shared/src:/app/shared/src
+    environment:
+      NODE_ENV: development
+
+  client:
+    image: node:20-alpine
+    working_dir: /app/client
+    command: npm run dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./client:/app/client
+      - ./shared:/app/shared
+      - /app/client/node_modules
+      - /app/shared/node_modules
+    environment:
+      NODE_ENV: development
+
+  db:
+    ports:
+      - "5432:5432"
+
+  redis:
+    ports:
+      - "6379:6379"
+
+  minio:
+    ports:
+      - "9000:9000"
+      - "9001:9001"

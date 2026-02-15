@@ -1,0 +1,14 @@
+/**
+ * TypeScript configuration for Vite config file.
+ * Separate config for Node.js environment used by Vite.
+ */
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "types": ["node"]
+  },
+  "include": ["vite.config.ts"]
+}
