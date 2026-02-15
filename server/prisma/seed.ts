@@ -5,7 +5,7 @@
  */
 
 import { PrismaClient } from '@prisma/client';
-import bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
@@ -52,7 +52,7 @@ async function main() {
   await prisma.message.deleteMany();
   await prisma.readState.deleteMany();
   await prisma.voiceState.deleteMany();
-  await prisma.dmChannelMember.deleteMany();
+  await prisma.dMChannelMember.deleteMany();
   await prisma.permissionOverride.deleteMany();
   await prisma.invite.deleteMany();
   await prisma.ban.deleteMany();
